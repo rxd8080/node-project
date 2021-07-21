@@ -1,0 +1,81 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  background: #ccc;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.head {
+  height: 50px;
+  border-bottom: 1px solid #001;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.head .h-left .log {
+  font-size: 26px;
+  text-decoration: none;
+}
+.head .h-right {
+  display: flex;
+  align-items: center;
+}
+.head .h-right .btn {
+  margin-left: 50px;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+}
+.main .menu {
+  width: 200px;
+  height: 100%;
+  border-right: 1px solid red;
+  overflow-y: auto;
+}
+.main .menu li {
+  border-bottom: 1px solid #000;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+.main .menu li a {
+  color: green;
+  text-decoration: none;
+}
+.main .body {
+  background: #fff;
+  flex: 1;
+  padding: 10px 30px;
+}
+
+.foot {
+  border-top: 1px solid #001;
+  height: 50px;
+}
+
+.search-bar {
+  margin: 0 0 10px 0;
+}
+
+.table-hover > tbody > tr:hover {
+  background: pink;
+}
+
+.pagination {
+  float: right;
+}
+
+.form-group {
+  margin-right: 10px;
+}
+
+/*# sourceMappingURL=common.css.map */
