@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bs/bootstrap/css/bootstrap.min.css">
     <title>Document</title>
 </head>
 <body>
-    <form action="/users/login" method="POST">
+    <form action="/users/login" method="POST" class="form-inline">
         <label>
             <span>用户名:</span>
             <input type="text" name="name" placeholder="请输入用户名">
@@ -16,7 +17,8 @@
             <span>密码:</span>
             <input type="password" name="pwd" placeholder="请输入密码">
         </label>
-        <input type="submit" value="登录">
+        <input type="submit" value="登录" class="btn btn-default">
+        <a href="/register.html">欢迎注册</a>
     </form>
 </body>
 </html>

@@ -6,6 +6,10 @@ body {
   background: #ccc;
 }
 
+.body {
+  position: relative;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -70,12 +74,15 @@ body {
   background: pink;
 }
 
-.pagination {
-  float: right;
-}
-
 .form-group {
   margin-right: 10px;
+}
+
+.nav {
+  overflow: hidden;
+  position: absolute;
+  top: 300px;
+  right: 30px;
 }
 
 /*# sourceMappingURL=common.css.map */

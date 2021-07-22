@@ -5,14 +5,14 @@ var router = express.Router();
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
-// router.get('/users', function (req, res) {
-//   res.render('users');
-// })
 
 router.get('/brand', function (req, res) {
   res.render('brand');
 })
 
+router.get('/register.html', function(req, res, next) {
+  res.render('register');  
+})
 router.get('/phone', function (req, res) {
   res.render('phone');
 })

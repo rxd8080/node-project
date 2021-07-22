@@ -35,6 +35,7 @@
                   <th>年龄</th>
                   <th>性别</th>
                   <th>权限</th>
+                  <th>操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -46,24 +47,24 @@
                     <td><%= list[i].age %></td>
                     <td><%= list[i].sex %></td>
                     <td><%= list[i].isAdmin %></td>
+                    <td><a href="/users/delete?id=<%= list[i]._id %>">删除</a></td>
                   </tr>
                <% }%>
               </tbody>
             </table>
-            <nav aria-label="Page navigation">
+            <nav aria-label="Page navigation" class="nav">
               <ul class="pagination">
-                <li class="disabled">
-                  <a href="#" aria-label="Previous">
+                <li class="<%= currentPage  == 1 ? 'disabled':''%>">
+                  <a href="/users?page=<%= currentPage -1 < 1 ? 1:currentPage -1 %>" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                  <a href="#" aria-label="Next">
+                <% for(var i = 0; i < totalPage; i++){ %>
+                  <li class="<%= currentPage == (i+1) ? 'active' : '' %>"><a href="/users?page=<%= i+1 %>&pageSize=<%= pageSize %>"><%= i + 1 %></a></li>
+                <% } %>
+                
+                <li class="<%= currentPage == totalPage ? 'disabled':'' %>">
+                  <a href="/users?page=<%= currentPage + 1 > totalPage ? totalPage:currentPage + 1 %>" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                   </a>
                 </li>
