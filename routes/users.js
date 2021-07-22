@@ -6,6 +6,14 @@ var url = 'mongodb://127.0.0.1:27017';
 
 router.get('/', function (req, res, next) {
   MongoClient.connect(url, function(err, client) {
+    if(err) {
+      console.log('连接失败', err);
+      res.render('error', {
+        message:'连接失败',
+        error:err
+      })
+      return;
+    }
     var db = client.db('project');
     db.collection('user').find().toArray(function(err,data) {
       if(err) {
@@ -19,34 +27,61 @@ router.get('/', function (req, res, next) {
           list:data
         });
       }
+      client.close();
     })
   })
 });
 
-
-// router.post('/login', function(req, res) {
-//   var username = req.body.name;
-//   var password = req.body.pwd;
-//   MongoClient.connect(url, function(err, client) {
-//     var db = client.db('project');
-//     db.collection('user').find({
-//       username:username,
-//       password:password
-//     }).toArray(function(err,data){
-//       if(err) {
-//         res.render('error', {
-//           message:'查询失败',
-//           error:err
-//         })
-//       }else {
-//         res.cookie('nickname', data[0].nickname, {
-//           maxAge: 10 * 60 * 1000
-//         })
-//         res.redirect('/');
-//       }
-//       client.close();
-//     })
-//   })
-//   res.send('')
-// })
+router.post('/login', function(req, res) {
+  var username = req.body.name;
+  var password = req.body.pwd;
+  if(!username) {
+    res.render('error', {
+      message:'用户名不能为空',
+      error:new Error('用户名不能是空')
+    })
+    return;
+  }
+  if(!password) {
+    res.render('error', {
+      message:'密码不能为空',
+      error:new Error('密码不能为空')
+    })
+    return;
+  }
+  MongoClient.connect(url, function(err, client) {
+    if(err) {
+      console.log('连接数据库失败', err);
+      res.render('error', {
+        message:'连接失败',
+        error:err
+      })
+      return;
+    }
+    var db = client.db('project');
+    db.collection('user').find({
+      username:username,
+      password:password
+    }).toArray(function(err,data){
+      if(err) {
+        res.render('error', {
+          message:'查询失败',
+          error:err
+        })
+      }else if(data.length <= 0) {
+        res.render('error',{
+          message:'登录失败',
+          error:new Error('登录失败')
+        })
+      }else {
+        //登录成功
+        res.cookie('nickname', data[0].nickname, {
+          maxAge: 10 * 60 * 1000
+        })
+        res.redirect('/');
+      }
+      client.close();
+    })
+  })
+})
 module.exports = router;

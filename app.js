@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var arr = require('./confige/ignoreRouter');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -18,6 +18,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res, next) {
+  // 排除登录和注册页面（如果是登录和注册页面就不走这个中间件函数）
+  if(arr.indexOf(req.url) > -1) {
+    next();
+    return;
+  }
+
+  var nickname = req.cookies.nickname;
+  if(nickname) {
+    next();
+  }else{
+    res.redirect('/login.html')
+  }
+})
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
